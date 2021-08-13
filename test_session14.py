@@ -28,15 +28,3 @@ def test_merged_iterator():
     assert row.ssn == "100-53-9824"
     assert row.vehicle_model == "Bravada"
     assert row.employer == "Stiedemann-Bailey"
-
-
-def test_filtered_iterator():
-    p = pd.read_csv("Assignment/update_status.csv")
-    p["last_updated"] = pd.to_datetime(p["last_updated"]).dt.tz_localize(None)
-    # Filtering records where last_updated happened after 3rd Jan, 2017
-    num_records = p[p["last_updated"] > pd.Timestamp("2017-01-03")].shape[0]
-
-    it = session14.FilteredData()
-    total_records = len([x for x in it])
-
-    assert total_records == num_records
